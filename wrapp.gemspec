@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.summary       = "#{spec.name}-#{spec.version}"
   spec.homepage      = 'https://github.com/bjoernalbers/wrapp'
   spec.license       = 'MIT'
-  spec.platform      = Gem::Platform::CURRENT
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
