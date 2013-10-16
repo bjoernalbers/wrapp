@@ -1,5 +1,4 @@
-require "wrapp/version"
-
-module Wrapp
-  # Your code goes here...
-end
+require 'plist'
+require 'wrapp/version'
+require 'wrapp/app_info'
+require 'wrapp/dmg_builder'
