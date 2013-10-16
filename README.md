@@ -39,6 +39,7 @@ wrapp /Applications/Chunky\ Bacon.app
 created chunky_bacon_1.2.3.dmg with SHA-1 deadbeef...
 ```
 
+**NOTE: Not yet implemented!**
 Build a dmg from the Chunky Bacon app (the one with the weird directory
 layout):
 
@@ -47,6 +48,7 @@ wrapp --plist /Applications/Chunky/Bacon.app /Applications/Chunky
 created bacon_1.2.3.dmg with SHA-1 deadbeef...
 ```
 
+**NOTE: Not yet implemented!**
 Build the dmg in a different directory (and create it first if missing):
 
 ```
