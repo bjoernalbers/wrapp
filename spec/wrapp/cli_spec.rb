@@ -5,11 +5,41 @@ module Wrapp
     let(:cli) { CLI.new }
     let(:app_path) { '/Applications/Chunky Bacon.app' }
 
+    it 'include usage instructions in the banner' do
+      expect(CLI.banner).to match(/^usage: \w+ \[options\] \w+$/i)
+    end
+
     describe '.run' do
       it 'runs an instance with ARGV' do
         cli.should_receive(:run).with(ARGV)
         CLI.stub(:new).and_return(cli)
         CLI.run
+      end
+
+      context 'without arguments' do
+        let(:argv) { [] }
+
+        before do
+          cli.stub(:warn)
+          cli.stub(:puts)
+          cli.stub(:exit)
+        end
+
+        it 'exits non-zero' do
+          cli.should_receive(:exit).with(2)
+          cli.run(argv)
+        end
+
+        it 'displays usage on stdout' do
+          cli.should_receive(:opt_parser).and_return('usage')
+          cli.should_receive(:puts).with('usage')
+          cli.run(argv)
+        end
+
+        it 'displays what is missing on stderr' do
+          cli.should_receive(:warn).with('ERROR: App path is missing!')
+          cli.run(argv)
+        end
       end
     end
 

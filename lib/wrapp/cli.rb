@@ -18,7 +18,13 @@ module Wrapp
 
     def run(argv)
       app_path = parse_options(argv).first
-      wrapp(app_path, config)
+      if app_path
+        wrapp(app_path, config)
+      else
+        warn 'ERROR: App path is missing!'
+        puts opt_parser
+        exit 2 
+      end
     end
 
     def wrapp(*opts)

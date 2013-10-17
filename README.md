@@ -53,6 +53,7 @@ the given App. (the filename automatically includes the name and version).
 
 Thats it.
 
+(NOTE: On authorization errors try prefixing the command with `sudo`!)
 
 ## Contributing
 

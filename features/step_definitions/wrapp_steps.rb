@@ -70,3 +70,8 @@ Then(/^the App should be wrapped including the parent directory$/) do
   attached_app_path = File.join(volumes_dir, @app.prefix)
   check_directory_presence([attached_app_path], true)
 end
+
+Then(/^I should see usage instructions$/) do
+  expected = "Usage: wrapp [options] APP_PATH"
+  assert_partial_output(expected, all_output)
+end
