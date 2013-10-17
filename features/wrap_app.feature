@@ -6,8 +6,10 @@ Feature: Wrap App
 
   Scenario: Create DMG
     Given an App
-    When I run wrapp
+    When I wrap the App
     Then the App should be wrapped in a DMG
 
-  #Scenario: Create DMG with different output directory
-  #Scenario: Create DMG with differnt info plist
+    #Scenario: Include parent directory in DMG
+    #Given an App in a sub-directory
+    #When I wrap the App with the parent directory
+    #Then the App should be wrapped with the parent directory
