@@ -2,8 +2,13 @@ module Wrapp
   class CLI
     include Mixlib::CLI
 
+    banner "Usage: #{File.basename($0)} [options] APP_PATH"
+
     option :include_parent_dir,
-      :long => '--include-parent-dir'
+      :long => '--include-parent-dir',
+      :short => '-i',
+      :description => "Include the App's parent directory in the DMG with all(!!!) content.",
+      :boolean => true
 
     class << self
       def run

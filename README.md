@@ -40,16 +40,16 @@ Wrap the *Chunky Bacon* App:
 wrapp /Applications/Chunky\ Bacon.app
 ```
 
-Wrap the *Chunky Bacon* App and include the parent directory (some stuff
-like *TeamViewer* or *FileMaker* reside in sub-directories of
-`/Applications` rather then the top-level):
+Wrap the *Chunky Bacon* App and include the parent directory with all
+the content (some stuff like *TeamViewer* or *FileMaker* reside in
+sub-directories of `/Applications` rather then the top-level itself):
 
 ```
 wrapp --include-parent-dir /Applications/why/Chunky Bacon.app
 ```
 
-The commands create a DMG like `chunky_bacon_1.2.3.dmg` (named after the
-App + Version) that contains the given App.
+The commands create a DMG like `chunky_bacon_1.2.3.dmg` that contains
+the given App. (the filename automatically includes the name and version).
 
 Thats it.
 
