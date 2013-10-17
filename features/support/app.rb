@@ -1,4 +1,8 @@
 class App
+  def initialize(opts = {})
+    @opts = opts
+  end
+
   def plist_path
     File.join(app_path, 'Contents', 'Info.plist')
   end
@@ -29,7 +33,12 @@ class App
     'Chunky Bacon'
   end
 
+  def prefix
+    @opts[:prefix]
+  end
+
   def app_path
-    "Applications/#{app_name}.app"
+    basedir = "#{app_name}.app"
+    (prefix && File.join(prefix, basedir)) || basedir
   end
 end

@@ -2,28 +2,19 @@ module Wrapp
   class DMGBuilder
     attr_reader :app_path
 
-    class << self
-      def run
-        new(ARGV.first).create #TODO: Test this!
-      end
-    end
-
-    def initialize(app_path)
+    def initialize(app_path, opts = {})
       @app_path = app_path
+      @opts = opts
     end
 
     def create
-      create_dmg
+      system("hdiutil create '#{dmg_filename}' -srcfolder '#{source_path}'")
     end
 
     private
 
-    def create_dmg
-      system("hdiutil create '#{dmg_path}' -srcfolder '#{app_path}'")
-    end
-
-    def dmg_path
-      dmg_filename
+    def source_path
+      @opts[:include_parent_dir] ? File.dirname(app_path) : app_path
     end
 
     def dmg_filename

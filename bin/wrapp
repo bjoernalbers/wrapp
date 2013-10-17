@@ -2,4 +2,4 @@
 
 require 'wrapp'
 
-Wrapp::DMGBuilder.run
+Wrapp::CLI.run

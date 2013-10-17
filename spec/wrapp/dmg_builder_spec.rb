@@ -9,41 +9,37 @@ module Wrapp
       DMGBuilder.any_instance.stub(:system)
     end
 
-    describe '.run' do
-      it 'creates the dmg' do
-        DMGBuilder.stub(:new).and_return(dmg)
-        dmg.should_receive(:create) #TODO: Fix nil warning!
-        DMGBuilder.run
-      end
-    end
-
     describe '#create' do
-      it 'creates the dmg and directory' do
-        dmg.should_receive(:create_dmg)
+      it 'creates the dmg by hdiutil' do
+        dmg.should_receive(:source_path).and_return('Chunky.app')
+        dmg.should_receive(:dmg_filename).and_return('bacon.dmg')
+        dmg.should_receive(:system).
+          with("hdiutil create 'bacon.dmg' -srcfolder 'Chunky.app'")
         dmg.create
       end
     end
 
-    describe '#create_dmg' do
-      it 'creates the dmg by hdiutil' do
-        dmg.should_receive(:app_path).and_return('Chunky.app')
-        dmg.should_receive(:dmg_path).and_return('bacon.dmg')
-        dmg.should_receive(:system).
-          with("hdiutil create 'bacon.dmg' -srcfolder 'Chunky.app'")
-        dmg.send(:create_dmg)
-      end
-    end
-
     describe '#app_path' do
-      it 'returns the path to the app' do
+      it 'returns the app path' do
         expect(dmg.app_path).to eq('Chunky Bacon.app')
       end
     end
 
-    describe '#dmg_path' do
-      it 'returns the dmg_filename' do
-        dmg.should_receive(:dmg_filename).and_return('chunky_bacon.dmg')
-        expect(dmg.send(:dmg_path)).to eq('chunky_bacon.dmg')
+    describe '#source_path' do
+      before do
+        dmg.should_receive(:app_path).and_return('Chunky/Bacon.app')
+      end
+
+      it 'returns the path of the app dir' do
+        expect(dmg.send(:source_path)).to eq('Chunky/Bacon.app')
+      end
+
+      context 'with :include_parent_dir => true' do
+        let(:dmg) { DMGBuilder.new('...', :include_parent_dir => true) }
+
+        it 'returns the path of the app parent dir' do
+          expect(dmg.send(:source_path)).to eq('Chunky')
+        end
       end
     end
 

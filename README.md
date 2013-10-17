@@ -6,11 +6,11 @@ Wrap an App... in a disk image (DMG).
 ## Prologue
 
 Say you wanna put your nice Mac OS X application in a handy disk image
-(DMG) for download / deployment.
-Why not use `wrapp` for this?
+(DMG) for distribution.
+Why not use *wrapp* for this?
 It is even shorter to type then `hdiutil` ;-)
 
-**NOTE: This only runs on Mac OS X!**
+**NOTE: This runs on Mac OS X only!**
 
 
 ## Installation
@@ -30,32 +30,26 @@ Or install it yourself as:
 
 ## Usage
 
+Try `wrapp --help`!
+
 Some examples...
 
-Build a dmg from the locally installed 'Chunky Bacon.app':
+Wrap the *Chunky Bacon* App:
 
 ```
 wrapp /Applications/Chunky\ Bacon.app
-created chunky_bacon_1.2.3.dmg with SHA-1 deadbeef...
 ```
 
-**NOTE: Not yet implemented!**
-Build a dmg from the Chunky Bacon app (the one with the weird directory
-layout):
+Wrap the *Chunky Bacon* App and include the parent directory (some stuff
+like *TeamViewer* or *FileMaker* reside in sub-directories of
+`/Applications` rather then the top-level):
 
 ```
-wrapp --plist /Applications/Chunky/Bacon.app /Applications/Chunky
-created bacon_1.2.3.dmg with SHA-1 deadbeef...
+wrapp --include-parent-dir /Applications/why/Chunky Bacon.app
 ```
 
-**NOTE: Not yet implemented!**
-Build the dmg in a different directory (and create it first if missing):
-
-```
-wrapp --outdir /tmp/dmgs /Applications/Chunky\ Bacon.app
-...
-created chunky_bacon_1.2.3.dmg with SHA-1 deadbeef...
-```
+The commands create a DMG like `chunky_bacon_1.2.3.dmg` (named after the
+App + Version) that contains the given App.
 
 Thats it.
 
