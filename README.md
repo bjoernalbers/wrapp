@@ -2,6 +2,7 @@
 
 Wrap an App... in a disk image (DMG).
 
+[![Gem Version](https://badge.fury.io/rb/wrapp.png)](http://badge.fury.io/rb/wrapp)
 
 ## Prologue
 
