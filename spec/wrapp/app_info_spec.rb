@@ -32,7 +32,7 @@ module Wrapp
 
     describe '#properties' do
       it 'returns the app properties as hash' do
-        Plist.should_receive(:parse_xml).with('Info.plist').
+        Plist4r.should_receive(:open).with('Info.plist').
           and_return(:plist_as_hash)
         expect(app.send(:properties)).to eq(:plist_as_hash)
       end

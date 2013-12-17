@@ -4,6 +4,7 @@ Wrap an App... in a disk image (DMG).
 
 [![Gem Version](https://badge.fury.io/rb/wrapp.png)](http://badge.fury.io/rb/wrapp)
 
+
 ## Prologue
 
 Say you wanna put your nice Mac OS X application in a handy disk image
@@ -11,22 +12,21 @@ Say you wanna put your nice Mac OS X application in a handy disk image
 Why not use *wrapp* for this?
 It is even shorter to type then `hdiutil` ;-)
 
-**NOTE: This runs on Mac OS X only!**
+
+## Requirements
+
+This obviously runs on Mac OS X only.
+You also need to have Xcode and a recent Ruby version installed
+(Mavericks ships with Ruby 2.0 which works fine).
 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install it yourself as:
 
-    gem 'wrapp'
+    $ sudo gem install wrapp
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install wrapp
+(Note: Rbenv/RVM users probably want to install without `sudo`.)
 
 
 ## Usage

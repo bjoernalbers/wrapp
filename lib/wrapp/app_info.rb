@@ -28,7 +28,7 @@ module Wrapp
     private
 
     def properties
-      Plist::parse_xml plist
+      Plist4r.open plist
     end
   end
 end
