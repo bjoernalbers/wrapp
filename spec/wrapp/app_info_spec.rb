@@ -59,6 +59,13 @@ module Wrapp
         command_line.stub(:run).and_return("Chunky\n")
         expect(app.get_property('')).to eq('Chunky')
       end
+
+      it 'raises when plistbuddy exists non-zero' do
+        app.stub(:`).and_return { system('false'); '' }
+        expect {
+          app.get_property('Foo')
+        }.to raise_error /error reading foo from info.plist/i
+      end
     end
   end
 end

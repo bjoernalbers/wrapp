@@ -16,8 +16,6 @@ It is even shorter to type then `hdiutil` ;-)
 ## Requirements
 
 This obviously runs on Mac OS X only.
-You also need to have Xcode and a recent Ruby version installed
-(Mavericks ships with Ruby 2.0 which works fine).
 
 
 ## Installation
