@@ -20,7 +20,9 @@ module Wrapp
     end
 
     def get_property(property)
-      `/usr/libexec/PlistBuddy -c 'Print :#{property}' '#{plist}'`.strip
+      command_line = Cocaine::CommandLine.new('/usr/libexec/PlistBuddy',
+                                              '-c :cmd :plist')
+      command_line.run(:cmd => "Print #{property}", :plist => plist).strip
     end
   end
 end

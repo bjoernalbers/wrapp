@@ -35,20 +35,29 @@ module Wrapp
     end
 
     describe '#get_property' do
-      it 'reads the properties via PlistBuddy' do
-        app.should_receive(:`).
-          with("/usr/libexec/PlistBuddy -c 'Print :Foo' 'Info.plist'").
+      let(:command_line) { double('command_line', :run => '') }
+
+      before do
+        Cocaine::CommandLine.stub(:new).and_return(command_line)
+      end
+
+      it 'builds a new command line object' do
+        Cocaine::CommandLine.should_receive(:new).
+          with('/usr/libexec/PlistBuddy', '-c :cmd :plist').
+          and_return(command_line)
+        app.get_property('Foo')
+      end
+
+      it 'runs the command line with the property' do
+        command_line.should_receive(:run).
+          with(:cmd => 'Print Foo', :plist => 'Info.plist').
           and_return('')
         app.get_property('Foo')
       end
 
       it 'strips the output' do
-        app.stub(:`).and_return("Chunky\n")
+        command_line.stub(:run).and_return("Chunky\n")
         expect(app.get_property('')).to eq('Chunky')
-      end
-
-      it 'raises on missing properties' do
-        pending 'how do i test this?'
       end
     end
   end

@@ -1,4 +1,5 @@
 require 'mixlib/cli'
+require 'cocaine'
 require 'wrapp/version'
 require 'wrapp/app_info'
 require 'wrapp/dmg_builder'
