@@ -1,5 +1,4 @@
 require 'mixlib/cli'
-require 'plist4r'
 require 'wrapp/version'
 require 'wrapp/app_info'
 require 'wrapp/dmg_builder'

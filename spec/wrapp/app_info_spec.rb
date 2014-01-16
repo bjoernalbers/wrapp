@@ -4,6 +4,10 @@ module Wrapp
   describe AppInfo do
     let(:app) { AppInfo.new('Info.plist') }
 
+    before do
+      AppInfo.any_instance.stub(:`)
+    end
+
     describe '#full_name' do
       it 'includes the downcased name and version without spaces' do
         app.stub(:name).and_return("Chunky\t Bacon")
@@ -30,29 +34,21 @@ module Wrapp
       end
     end
 
-    describe '#properties' do
-      it 'returns the app properties as hash' do
-        Plist4r.should_receive(:open).with('Info.plist').
-          and_return(:plist_as_hash)
-        expect(app.send(:properties)).to eq(:plist_as_hash)
-      end
-    end
-
     describe '#get_property' do
-      context 'with existing property' do
-        it 'returns the striped property' do
-          app.stub(:properties).and_return({})
-          expect { 
-            app.get_property('Chunky')
-          }.to raise_error(/no property found: chunky/i)
-        end
+      it 'reads the properties via PlistBuddy' do
+        app.should_receive(:`).
+          with("/usr/libexec/PlistBuddy -c 'Print :Foo' 'Info.plist'").
+          and_return('')
+        app.get_property('Foo')
       end
 
-      context 'with missing property' do
-        it 'raises an error' do
-          app.stub(:properties).and_return({ 'Chunky' => ' Bacon ' })
-          expect(app.get_property('Chunky')).to eq('Bacon')
-        end
+      it 'strips the output' do
+        app.stub(:`).and_return("Chunky\n")
+        expect(app.get_property('')).to eq('Chunky')
+      end
+
+      it 'raises on missing properties' do
+        pending 'how do i test this?'
       end
     end
   end

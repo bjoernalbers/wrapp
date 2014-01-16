@@ -20,15 +20,7 @@ module Wrapp
     end
 
     def get_property(property)
-      raise "No property found: #{property}" unless
-        properties.has_key?(property)
-      properties[property].strip
-    end
-
-    private
-
-    def properties
-      Plist4r.open plist
+      `/usr/libexec/PlistBuddy -c 'Print :#{property}' '#{plist}'`.strip
     end
   end
 end
