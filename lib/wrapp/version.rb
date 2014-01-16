@@ -1,3 +1,3 @@
 module Wrapp
-  VERSION = '0.3.0'
+  VERSION = '0.5.0'
 end

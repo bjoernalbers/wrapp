@@ -20,7 +20,9 @@ module Wrapp
     end
 
     def get_property(property)
-      `/usr/libexec/PlistBuddy -c 'Print :#{property}' '#{plist}'`.strip
+      output = `/usr/libexec/PlistBuddy -c 'Print :#{property}' '#{plist}'`
+      raise "Error reading #{property} from #{plist}" unless $?.success?
+      output.strip
     end
   end
 end
