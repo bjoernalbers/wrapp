@@ -4,6 +4,7 @@ Feature: Wrap App
   As as user
   I want wrap my App in a DMG
 
+  @announce
   Scenario: Wrap App
     Given an App
     When I wrap the App
