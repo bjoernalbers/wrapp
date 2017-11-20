@@ -59,6 +59,11 @@ When(/^I wrap the App including the parent directory$/) do
   run_simple(unescape(cmd))
 end
 
+When(/^I wrap the App including \/Applications symlink$/) do
+  cmd = "wrapp --add-applications-link '#{@app.app_path}'"
+  run_simple(unescape(cmd))
+end
+
 Then(/^the App should be wrapped$/) do
   attach_dmg
   attached_app_path = File.join(volumes_dir, @app.app_name)
@@ -69,6 +74,12 @@ Then(/^the App should be wrapped including the parent directory$/) do
   attach_dmg
   attached_app_path = File.join(volumes_dir, @app.prefix)
   check_directory_presence([attached_app_path], true)
+end
+
+Then(/^the app should be wrapped including the \/Applications symlink$/) do
+  attach_dmg
+  attached_app_path = File.join(volumes_dir, @app.app_name)
+  check_directory_presence([File.join(attached_app_path, 'Applications')], true)
 end
 
 Then(/^I should see usage instructions$/) do

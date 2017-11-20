@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 module Wrapp
   class DMGBuilder
     BIG_SOURCE_FOLDER_SIZE = 100
@@ -10,14 +12,22 @@ module Wrapp
     end
 
     def create
-      cmd = %w(hdiutil create)
-      cmd << "-srcfolder '#{source_path}'"
-      # NOTE: There is a known bug in hdiutil that causes the image creation
-      # to fail, see: https://discussions.apple.com/thread/5667409
-      # Therefore we have to explicitely set the dmg size for bigger sources.
-      cmd << "-megabytes #{dmg_size}" if big_source_folder?
-      cmd << "'#{dmg_filename}'"
-      system(cmd.join(' '))
+      Dir.mktmpdir('wrapp_dmg') { |dir|
+        FileUtils.cp_r(source_path, dir)
+
+        if @opts[:add_applications_link]
+          File.symlink('/Applications', File.join(dir, 'Applications'))
+        end
+
+        cmd = %w(hdiutil create)
+        cmd << "-srcfolder '#{dir}'"
+        # NOTE: There is a known bug in hdiutil that causes the image creation
+        # to fail, see: https://discussions.apple.com/thread/5667409
+        # Therefore we have to explicitely set the dmg size for bigger sources.
+        cmd << "-megabytes #{dmg_size}" if big_source_folder?
+        cmd << "'#{dmg_filename}'"
+        system(cmd.join(' '))
+      }
     end
 
     private

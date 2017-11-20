@@ -10,6 +10,13 @@ module Wrapp
       :description => "Include the App's parent directory in the DMG with all(!!!) content.",
       :boolean => true
 
+    option :add_applications_link,
+      :long => '--add-applications-link',
+      :short => '-l',
+      :description => 'Add /Applications symlink to the DMG.',
+      :boolean => true,
+      :default => true
+
     class << self
       def run
         new.run(ARGV)
