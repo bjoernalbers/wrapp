@@ -12,7 +12,7 @@ module Wrapp
 
     option :filesystem,
       :long => '--filesystem FILESYSTEM',
-      :short => '-fs FILESYSTEM',
+      :short => '-f FILESYSTEM',
       :description => "Causes a filesystem of the specified type to be written to the image.",
       :default => 'HFS+'
 
