@@ -100,6 +100,14 @@ module Wrapp
       end
     end
 
+    describe '#vol_name' do
+      if 'returns the volume name' do
+          app.should_receive(:name).and_return('chunky_bacon')
+          dmg.stub(:app).and_return(app)
+          expect(dmg.send(:vol_name)).to eq('chunky_bacon')
+      end
+    end
+
     describe '#app' do
       it 'creates a cached app_info instance' do
         dmg.should_receive(:plist).and_return('Info.plist')

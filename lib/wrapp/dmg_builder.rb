@@ -55,6 +55,10 @@ module Wrapp
       "#{app.full_name}.dmg"
     end
 
+    def vol_name
+      @opts[:volume_name] ? @opts[:volume_name] : app.name
+    end
+
     def app
       @app_info ||= AppInfo.new(plist)
     end
