@@ -16,7 +16,10 @@ module Wrapp
       # to fail, see: https://discussions.apple.com/thread/5667409
       # Therefore we have to explicitely set the dmg size for bigger sources.
       cmd << "-megabytes #{dmg_size}" if big_source_folder?
+      cmd << "-volname '#{vol_name}'"
+      cmd << "-fs '#{@opts[:filesystem]}'"
       cmd << "'#{dmg_filename}'"
+
       system(cmd.join(' '))
     end
 
@@ -43,6 +46,10 @@ module Wrapp
 
     def dmg_filename
       "#{app.full_name}.dmg"
+    end
+
+    def vol_name
+      @opts[:volume_name] ? @opts[:volume_name] : app.name
     end
 
     def app

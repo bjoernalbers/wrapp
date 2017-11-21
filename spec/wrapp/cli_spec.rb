@@ -62,6 +62,30 @@ module Wrapp
           end
         end
       end
+
+      %w(--filesystem -fs).each do |opt|
+        context "with #{opt}" do
+          let(:argv) { [app_path, opt] }
+
+          it 'specifies the filesystem type' do
+            cli.should_receive(:wrapp)
+              .with(app_path, :filesystem => 'HFS+')
+            cli.run(argv)
+          end
+        end
+      end
+
+      %w(--volume-name -n).each do |opt|
+        context "with #{opt}" do
+          let(:argv) { [app_path, opt] }
+
+          if 'specifies the volume name' do
+            cli.should_receive(:wrapp)
+              .with(app_path, :volume_name => '')
+            cli.run(argv)
+          end
+        end
+      end
     end
 
     describe '#wrapp' do
