@@ -68,4 +68,4 @@ issues. Then:
 
 ## Copyright
 
-Copyright (c) 2013 Björn Albers
+Copyright (c) 2017 Björn Albers
