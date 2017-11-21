@@ -9,13 +9,17 @@ module Wrapp
       :short => '-i',
       :description => "Include the App's parent directory in the DMG with all(!!!) content.",
       :boolean => true
-
+    option :add_applications_link,
+      :long => '--add-applications-link',
+      :short => '-l',
+      :description => 'Add /Applications symlink to the DMG.',
+      :boolean => true,
+      :default => true
     option :filesystem,
       :long => '--filesystem FILESYSTEM',
       :short => '-f FILESYSTEM',
       :description => "Causes a filesystem of the specified type to be written to the image.",
       :default => 'HFS+'
-
     option :volume_name,
       :long => '--volume-name NAME',
       :short => '-n NAME',
