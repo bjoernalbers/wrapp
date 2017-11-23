@@ -3,6 +3,7 @@
 Wrap an App... in a disk image (DMG).
 
 [![Gem Version](https://badge.fury.io/rb/wrapp.png)](http://badge.fury.io/rb/wrapp)
+[![Build Status](https://travis-ci.org/bjoernalbers/wrapp.svg?branch=master)](https://travis-ci.org/bjoernalbers/wrapp)
 
 
 ## Prologue
