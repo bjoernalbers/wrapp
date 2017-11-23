@@ -10,42 +10,38 @@ Wrap an App... in a disk image (DMG).
 Say you wanna put your nice Mac OS X application in a handy disk image
 (DMG) for distribution.
 Why not use *wrapp* for this?
-It is even shorter to type then `hdiutil` ;-)
+It is a short wrapper around `hdiutil` ;-)
 
 
 ## Requirements
 
-This obviously runs on Mac OS X only.
+This runs only on macOS.
 
 
 ## Installation
 
 Install it yourself as:
 
-    $ sudo gem install wrapp
+    $ sudo gem install wrapp -n /usr/local/bin
 
 (Note: Rbenv/RVM users probably want to install without `sudo`.)
 
 
 ## Usage
 
-Try `wrapp --help`!
+```
+$ wrapp --help
+Usage: wrapp [options] APP_PATH
+    -f, --filesystem FILESYSTEM      Causes a filesystem of the specified type to be written to the image.
+    -n, --volume-name NAME           Volume name of the newly created filesystem.
+```
 
-Some examples...
-
-Wrap the *Chunky Bacon* App:
+Examples...
 
 ```
 wrapp /Applications/Chunky\ Bacon.app
 ```
 
-Wrap the *Chunky Bacon* App and include the parent directory with all
-the content (some stuff like *TeamViewer* or *FileMaker* reside in
-sub-directories of `/Applications` rather then the top-level itself):
-
-```
-wrapp --include-parent-dir /Applications/why/Chunky Bacon.app
-```
 
 The commands create a DMG like `chunky_bacon_1.2.3.dmg` that contains
 the given App. (the filename automatically includes the name and version).
@@ -53,6 +49,7 @@ the given App. (the filename automatically includes the name and version).
 Thats it.
 
 (NOTE: On authorization errors try prefixing the command with `sudo`!)
+
 
 ## Contributing
 

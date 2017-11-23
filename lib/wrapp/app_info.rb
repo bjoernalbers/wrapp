@@ -1,9 +1,9 @@
 module Wrapp
   class AppInfo
-    attr_reader :plist
+    attr_reader :path
 
-    def initialize(plist)
-      @plist = plist
+    def initialize(path)
+      @path = path
     end
 
     def full_name
@@ -23,6 +23,12 @@ module Wrapp
       output = `/usr/libexec/PlistBuddy -c 'Print :#{property}' '#{plist}'`
       raise "Error reading #{property} from #{plist}" unless $?.success?
       output.strip
+    end
+
+    private
+
+    def plist
+      File.join(path, 'Contents', 'Info.plist')
     end
   end
 end

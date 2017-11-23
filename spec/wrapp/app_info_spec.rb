@@ -2,56 +2,62 @@ require 'spec_helper'
 
 module Wrapp
   describe AppInfo do
-    let(:app) { AppInfo.new('Info.plist') }
+    let(:path) { '/Applications/Chunky Bacon.app' }
+    subject { AppInfo.new(path) }
 
     before do
-      AppInfo.any_instance.stub(:`)
+      allow(subject).to receive(:`) { '' }
     end
 
     describe '#full_name' do
       it 'includes the downcased name and version without spaces' do
-        app.stub(:name).and_return("Chunky\t Bacon")
-        app.stub(:version).and_return('1.2.3')
-        expect(app.full_name).to eq('chunky_bacon_1.2.3')
+        allow(subject).to receive(:name) { "Chunky\t Bacon" }
+        allow(subject).to receive(:version) { '1.2.3' }
+        expect(subject.full_name).to eq('chunky_bacon_1.2.3')
       end
     end
 
     describe '#name' do
       it 'returns the app name' do
-        app.should_receive(:get_property).
-          with('CFBundleName').
-          and_return('Chunky Bacon')
-        expect(app.name).to eq('Chunky Bacon')
+        allow(subject).to receive(:get_property) { 'Chunky Bacon' }
+        expect(subject.name).to eq('Chunky Bacon')
+        expect(subject).to have_received(:get_property).with('CFBundleName')
       end
     end
 
     describe '#version' do
       it 'returns the app version' do
-        app.should_receive(:get_property).
-          with('CFBundleShortVersionString').
-          and_return('0.4.2')
-        expect(app.version).to eq('0.4.2')
+        allow(subject).to receive(:get_property) { '0.4.2' }
+        expect(subject.version).to eq('0.4.2')
+        expect(subject).to have_received(:get_property).
+          with('CFBundleShortVersionString')
       end
     end
 
     describe '#get_property' do
       it 'retrieves the property by PlistBuddy' do
-        app.should_receive(:`).
-          with("/usr/libexec/PlistBuddy -c 'Print :foo' 'Info.plist'").
-          and_return('')
-        app.get_property('foo')
+        allow(subject).to receive(:`) { '' }
+        subject.get_property('foo')
+        expect(subject).to have_received(:`).
+          with("/usr/libexec/PlistBuddy -c 'Print :foo' '/Applications/Chunky Bacon.app/Contents/Info.plist'")
       end
 
       it 'strips the output' do
-        app.stub(:`).and_return("Chunky\n")
-        expect(app.get_property(nil)).to eq('Chunky')
+        allow(subject).to receive(:`) { "Chunky\n" }
+        expect(subject.get_property(nil)).to eq('Chunky')
       end
 
       it 'raises when plistbuddy exists non-zero' do
-        app.stub(:`).and_return { system('false'); '' }
+        allow(subject).to receive(:`) { system('false'); '' }
         expect {
-          app.get_property('Foo')
-        }.to raise_error /error reading foo from info.plist/i
+          subject.get_property('Foo')
+        }.to raise_error /error reading foo/i
+      end
+    end
+
+    describe '#plist' do
+      it 'returns the app info plist path' do
+        expect(subject.send(:plist)).to eq('/Applications/Chunky Bacon.app/Contents/Info.plist')
       end
     end
   end
