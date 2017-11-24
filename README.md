@@ -8,10 +8,10 @@ Wrap an App... in a disk image (DMG).
 
 ## Prologue
 
-Say you wanna put your nice Mac OS X application in a handy disk image
+Say you wanna put your nice macOS application in a handy disk image
 (DMG) for distribution.
 Why not use *wrapp* for this?
-It is a short wrapper around `hdiutil` ;-)
+It is a short wrapper around `hdiutil`.
 
 
 ## Requirements
